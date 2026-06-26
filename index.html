@@ -820,7 +820,7 @@ function submitForm() {
   var payload = { nombre:nombre, correo:correo, celular:celular, cohorte:'Cohorte '+cohorte, asistencia:asistencia.value };
   var formBody = document.getElementById('formBody');
 
-  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec') { showConf(asistencia.value, formBody); return; }
+  if (SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbyZ8emmhsc7rDTutPLeqaav2erWf0uFsucKPq2v7BSPVWkT2YFfpzxqnwS3kUBqCU2z/exec') { showConf(asistencia.value, formBody); return; }
 
   fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
     .then(function(){ showConf(asistencia.value, formBody); })
