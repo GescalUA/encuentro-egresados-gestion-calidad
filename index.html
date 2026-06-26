@@ -351,42 +351,436 @@
   .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; gap: 12px; flex-wrap: wrap; }
   .footer-bottom span { opacity: .5; }
 
-  /* ══ RESPONSIVE ══ */
-  @media (max-width: 960px) {
-    .hero-inner { grid-template-columns: 1fr; padding: 52px 20px 40px; gap: 36px; }
-    .hero-form-card { max-width: 540px; }
+  /* ══════════════════════════════════════════════════════════
+     RESPONSIVE — TABLET  (≤960px, sin tocar el hero split)
+  ══════════════════════════════════════════════════════════ */
+  @media (max-width: 960px) and (min-width: 769px) {
+    .hero-inner { grid-template-columns: 1fr 380px; gap: 32px; padding: 56px 24px; }
     .speakers-grid { grid-template-columns: 1fr; }
     .location-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; gap: 24px; }
-  }
-  @media (max-width: 640px) {
-    .topbar, .nav-links { display: none; }
-    .nav-logo img { height: 40px; }
-    .nav-label .dept { font-size: 11.5px; }
-    .nav-cta { padding: 8px 16px; font-size: 12px; }
-    .hero { min-height: auto; }
-    .hero h1 { font-size: 25px; }
-    .hero-sub { font-size: 14px; }
-    .section { padding: 52px 0; }
-    .section-inner { padding: 0 18px; }
-    .hfc-body { padding: 18px 16px 20px; }
-    .hfc-header { padding: 16px 18px; }
-    .fg-row { grid-template-columns: 1fr; }
-    .radio-row { grid-template-columns: 1fr; }
-    .timeline { padding-left: 30px; }
-    .map-embed { height: 240px; }
-    .footer-grid { gap: 18px; }
-    .hero-btns { flex-direction: column; }
-    .btn-primary, .btn-ghost { justify-content: center; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   }
 
-.countdown{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
-.count-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:12px 18px;border-radius:12px;text-align:center;min-width:78px}
-.count-box b{display:block;font-size:28px;color:#fff}
-.count-box span{font-size:11px;color:#f0b06a;text-transform:uppercase}
-.free-badge{display:inline-block;background:#16a34a;color:#fff;padding:8px 16px;border-radius:999px;font-weight:700;margin:18px 0}
-.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px}
-.benefit{background:#fff;padding:24px;border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  /* ══════════════════════════════════════════════════════════
+     MOBILE  (≤768px) — experiencia completamente rediseñada
+  ══════════════════════════════════════════════════════════ */
+  @media (max-width: 768px) {
+
+    /* ─── TOP BAR oculto ─── */
+    .topbar { display: none; }
+
+    /* ─── NAVBAR HAMBURGUESA ─── */
+    nav { position: sticky; top: 0; z-index: 300; }
+    .nav-inner { padding: 12px 18px; position: relative; }
+    .nav-logo img { height: 38px; }
+    .nav-label .prog { font-size: 9.5px; }
+    .nav-label .dept { font-size: 11.5px; }
+
+    /* Ocultar links y CTA desktop */
+    .nav-links { display: none; }
+    .nav-cta   { display: none; }
+
+    /* Botón hamburguesa */
+    .hamburger {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: var(--blue);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      padding: 8px;
+      flex-shrink: 0;
+    }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all .25s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Menú desplegable móvil */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 3px solid var(--orange);
+      box-shadow: 0 12px 32px rgba(31,63,122,.18);
+      z-index: 299;
+      flex-direction: column;
+      padding: 8px 0 16px;
+      animation: slideDown .22s ease;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      border-bottom: 1px solid var(--gray-100);
+      transition: background .15s, color .15s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:active { background: var(--gray-100); }
+    .mobile-menu .mob-cta {
+      margin: 12px 24px 0;
+      background: var(--orange);
+      color: #fff;
+      border-radius: 10px;
+      justify-content: center;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      border-bottom: none;
+    }
+    @keyframes slideDown { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+
+    /* ─── HERO: columna única centrada ─── */
+    .hero {
+      min-height: auto;
+      align-items: flex-start;
+    }
+    .hero::before {
+      background: linear-gradient(180deg, rgba(21,45,90,.96) 0%, rgba(31,63,122,.92) 100%);
+    }
+
+    /* Layout: una sola columna */
+    .hero-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 48px 20px 40px;
+      gap: 0;
+      width: 100%;
+    }
+
+    /* Logo centrado arriba del hero */
+    .hero-inner::before {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 80px;
+      background: url('https://repositorio.uniatlantico.edu.co/assets/dspace/images/Logo-UA-Acreditacion1.png') center/contain no-repeat;
+      filter: brightness(0) invert(1);
+      opacity: .9;
+      margin-bottom: 20px;
+      flex-shrink: 0;
+    }
+
+    /* Eyebrow centrado */
+    .hero-eyebrow {
+      margin: 0 auto 16px;
+      font-size: 10px;
+    }
+
+    /* H1 */
+    .hero h1 {
+      font-size: 26px;
+      line-height: 1.22;
+      margin-bottom: 14px;
+      max-width: 340px;
+    }
+
+    /* Subtítulo */
+    .hero-sub {
+      font-size: 14px;
+      max-width: 320px;
+      margin: 0 auto 20px;
+      line-height: 1.7;
+    }
+
+    /* Badge gratuito */
+    .free-badge {
+      font-size: 12px;
+      padding: 7px 14px;
+      margin: 0 auto 24px;
+    }
+
+    /* CONTADOR: grilla 2×2 */
+    .countdown {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 auto 28px;
+      width: 100%;
+      max-width: 260px;
+    }
+    .count-box {
+      padding: 14px 8px;
+      border-radius: 12px;
+      min-width: unset;
+    }
+    .count-box b {
+      font-size: 30px;
+      font-weight: 800;
+    }
+    .count-box span {
+      font-size: 10px;
+      letter-spacing: .06em;
+    }
+
+    /* Chips */
+    .hero-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0 auto 28px;
+      width: 100%;
+      max-width: 320px;
+    }
+    .chip {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      justify-content: flex-start;
+      font-size: 13px;
+    }
+
+    /* Botones */
+    .hero-btns {
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
+    }
+    .btn-primary,
+    .btn-ghost {
+      width: 100%;
+      justify-content: center;
+      padding: 15px 20px;
+      font-size: 14px;
+      border-radius: 10px;
+    }
+
+    /* OCULTAR el formulario del Hero en móvil */
+    .hero-form-card { display: none !important; }
+
+    /* ─── FORMULARIO MÓVIL: sección independiente al final ─── */
+    #mobile-form-section {
+      display: block !important;
+      background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue) 100%);
+      padding: 56px 0;
+    }
+    #mobile-form-section .mfs-inner {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+    #mobile-form-section .mfs-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    #mobile-form-section .mfs-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #f0b06a;
+      margin-bottom: 10px;
+    }
+    #mobile-form-section .mfs-title {
+      font-family: 'Merriweather', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 10px;
+    }
+    #mobile-form-section .mfs-lead {
+      font-size: 13.5px;
+      color: rgba(255,255,255,.7);
+      line-height: 1.7;
+    }
+
+    /* Tarjeta del formulario móvil */
+    #mobile-form-section .hero-form-card {
+      display: flex !important;
+      background: var(--white);
+      border-radius: 18px;
+      box-shadow: 0 24px 64px rgba(0,0,0,.3);
+      overflow: hidden;
+    }
+    #mobile-form-section .hfc-header {
+      padding: 18px 20px;
+    }
+    #mobile-form-section .hfc-body {
+      padding: 24px 20px 28px;
+    }
+
+    /* Todos los campos al 100% sin columnas */
+    #mobile-form-section .fg { margin-bottom: 18px; }
+    #mobile-form-section .fg-row { grid-template-columns: 1fr; gap: 18px; }
+    #mobile-form-section .fi,
+    #mobile-form-section .fs {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border-radius: 10px;
+    }
+    #mobile-form-section .fl { font-size: 11px; margin-bottom: 7px; }
+    #mobile-form-section .radio-row { grid-template-columns: 1fr; gap: 10px; }
+    #mobile-form-section .rl { padding: 14px; font-size: 14px; }
+    #mobile-form-section .fsub {
+      width: 100%;
+      padding: 16px;
+      font-size: 15px;
+      border-radius: 10px;
+      margin-top: 8px;
+    }
+    #mobile-form-section .fnote { font-size: 11.5px; margin-top: 14px; }
+    #mobile-form-section .conf { padding: 32px 20px; }
+    #mobile-form-section .conf-title { font-size: 18px; }
+    #mobile-form-section .conf-text { font-size: 13px; }
+
+    /* ─── AGENDA: tarjetas verticales (sin timeline) ─── */
+    .timeline {
+      padding-left: 0;
+    }
+    .timeline::before { display: none; }
+
+    .tl-item {
+      padding-bottom: 0;
+      margin-bottom: 16px;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+
+    .tl-dot { display: none; }
+
+    .tl-time {
+      display: inline-block;
+      background: var(--blue);
+      color: #fff;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .tl-item:nth-child(3) .tl-time,
+    .tl-item:nth-child(4) .tl-time { background: var(--orange); }
+
+    .tl-card {
+      border-left: none;
+      border-top: 4px solid var(--blue);
+      border-radius: 14px;
+      padding: 18px 18px 20px;
+      box-shadow: 0 4px 20px rgba(31,63,122,.1);
+    }
+    .tl-item:nth-child(3) .tl-card,
+    .tl-item:nth-child(4) .tl-card { border-top-color: var(--orange); }
+
+    .tl-card h3 { font-size: 15px; margin-bottom: 8px; }
+    .tl-card p  { font-size: 13.5px; line-height: 1.6; }
+
+    .tl-speaker { gap: 14px; }
+    .tl-speaker-img { width: 46px; height: 46px; }
+    .tl-speaker-name { font-size: 13px; }
+
+    /* ─── CONFERENCISTAS: columna única, foto ancho completo ─── */
+    .speakers-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+    .sc-img {
+      height: 420px !important;
+      overflow: hidden;
+    }
+    .sc-img img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: contain !important;
+      object-position: top center !important;
+    }
+    /* ICONTEC card: logo centrado */
+    .icontec-sc-img img {
+      width: 200px !important;
+      height: auto !important;
+    }
+    .sc-body { padding: 20px 18px 22px; }
+    .sc-body h3 { font-size: 17px; }
+    .sc-body p  { font-size: 13.5px; line-height: 1.65; }
+
+    /* ─── BENEFICIOS: 2 columnas ─── */
+    .benefits-grid {
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .benefit {
+      padding: 18px 14px;
+      border-radius: 12px;
+    }
+    .benefit h3 { font-size: 13.5px; margin-bottom: 6px; line-height: 1.3; }
+    .benefit p  { font-size: 12.5px; line-height: 1.5; color: var(--gray-600); }
+
+    /* ─── SECCIONES: más aire vertical ─── */
+    .section { padding: 56px 0; }
+    .section-inner { padding: 0 18px; }
+    .section-tag   { font-size: 10.5px; margin-bottom: 8px; }
+    .section-title { font-size: 22px; margin-bottom: 12px; }
+    .section-lead  { font-size: 14px; margin-bottom: 32px; line-height: 1.75; }
+
+    /* ─── LUGAR ─── */
+    .location-grid { grid-template-columns: 1fr; gap: 32px; }
+    .loc-item { margin-bottom: 20px; gap: 12px; }
+    .loc-icon { width: 40px; height: 40px; border-radius: 9px; flex-shrink: 0; }
+    .loc-text span { font-size: 14px; }
+    .map-embed { height: 240px; border-radius: 14px; }
+
+    /* ─── FOOTER: columna única centrado ─── */
+    footer { padding: 44px 0 24px; }
+    .footer-inner { padding: 0 20px; }
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-bottom: 28px;
+      text-align: center;
+    }
+    .footer-logo { display: flex; justify-content: center; }
+    .footer-logo img { height: 48px; margin-bottom: 12px; }
+    .footer-about { font-size: 13px; line-height: 1.7; }
+    .footer-col h4 { font-size: 10px; margin-bottom: 12px; }
+    .footer-col li  { font-size: 13px; margin-bottom: 6px; }
+    .footer-divider { margin-bottom: 16px; }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 6px;
+    }
+    .footer-bottom span { font-size: 11px; }
+
+  } /* end @media 768px */
+
+  .countdown{display:flex;gap:12px;margin:28px 0;flex-wrap:wrap}
+  .count-box{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:12px 18px;border-radius:12px;text-align:center;min-width:78px}
+  .count-box b{display:block;font-size:28px;color:#fff}
+  .count-box span{font-size:11px;color:#f0b06a;text-transform:uppercase}
+  .free-badge{display:inline-block;background:#16a34a;color:#fff;padding:8px 16px;border-radius:999px;font-weight:700;margin:18px 0}
+  .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px}
+  .benefit{background:#fff;padding:24px;border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+  /* Hamburger: hidden on desktop, shown on mobile via media query */
+  .hamburger { display: none; }
+  #mobile-form-section { display: none; }
 </style>
 </head>
 <body>
@@ -416,6 +810,17 @@
       <a href="#lugar">Lugar</a>
     </div>
     <a class="nav-cta" href="#registro">Registro →</a>
+    <!-- Hamburger (mobile only) -->
+    <button class="hamburger" id="hamburgerBtn" aria-label="Abrir menú" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile dropdown menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#agenda"         onclick="closeMenu()">📋 Agenda</a>
+    <a href="#conferencistas" onclick="closeMenu()">🎤 Conferencistas</a>
+    <a href="#lugar"          onclick="closeMenu()">📍 Lugar</a>
+    <a href="#mobile-form-section" onclick="closeMenu()" class="mob-cta">✅ Confirmar asistencia</a>
   </div>
 </nav>
 
@@ -746,6 +1151,96 @@
   </div>
 </section>
 
+<!-- ═══════════ FORMULARIO MÓVIL (sección independiente, solo visible en mobile) ═══════════ -->
+<section id="mobile-form-section">
+  <div class="mfs-inner">
+    <div class="mfs-header">
+      <div class="mfs-tag">Confirmación de asistencia</div>
+      <div class="mfs-title">Regístrate al Encuentro</div>
+      <div class="mfs-lead">Completa el formulario para confirmar tu participación en el encuentro académico y de egresados.</div>
+    </div>
+    <!-- Reutilizamos la misma tarjeta del formulario, clonada para móvil -->
+    <div class="hero-form-card" style="display:flex!important;">
+      <div class="hfc-header">
+        <img src="https://repositorio.uniatlantico.edu.co/assets/dspace/images/Logo-UA-Acreditacion1.png"
+             alt="Universidad del Atlántico" onerror="this.style.display='none'" style="height:40px;width:auto;" />
+        <div class="hfc-header-text">
+          <div class="title">Confirma tu participación</div>
+          <div class="sub">Esp. Gestión de la Calidad · julio 2026</div>
+        </div>
+      </div>
+      <div class="hfc-body" id="formBodyMob">
+        <div class="fg">
+          <label class="fl" for="nombre2">Nombre completo <span class="req">*</span></label>
+          <input class="fi" type="text" id="nombre2" name="nombre2" placeholder="Nombre(s) y apellido(s)" autocomplete="name" />
+          <div class="em" id="err-nombre2">Por favor ingresa tu nombre completo.</div>
+        </div>
+        <div class="fg">
+          <label class="fl" for="correo2">Correo electrónico <span class="req">*</span></label>
+          <input class="fi" type="email" id="correo2" name="correo2" placeholder="correo@ejemplo.com" autocomplete="email" />
+          <div class="em" id="err-correo2">Ingresa un correo electrónico válido.</div>
+        </div>
+        <div class="fg">
+          <label class="fl" for="celular2">Celular o WhatsApp <span class="req">*</span></label>
+          <input class="fi" type="tel" id="celular2" name="celular2" placeholder="3001234567" autocomplete="tel" inputmode="numeric" maxlength="15" />
+          <div class="em" id="err-celular2">Ingresa un número válido (mínimo 7 dígitos).</div>
+        </div>
+        <div class="fg">
+          <label class="fl" for="cohorte2">Cohorte <span class="req">*</span></label>
+          <div class="sel-wrap">
+            <select class="fs" id="cohorte2" name="cohorte2">
+              <option value="">Seleccione...</option>
+              <option value="25">Cohorte 25</option><option value="26">Cohorte 26</option>
+              <option value="27">Cohorte 27</option><option value="28">Cohorte 28</option>
+              <option value="29">Cohorte 29</option><option value="30">Cohorte 30</option>
+              <option value="31">Cohorte 31</option><option value="32">Cohorte 32</option>
+              <option value="33">Cohorte 33</option><option value="34">Cohorte 34</option>
+              <option value="35">Cohorte 35</option><option value="36">Cohorte 36</option>
+              <option value="37">Cohorte 37</option><option value="38">Cohorte 38</option>
+              <option value="39">Cohorte 39</option><option value="40">Cohorte 40</option>
+            </select>
+          </div>
+          <div class="em" id="err-cohorte2">Por favor selecciona tu cohorte.</div>
+        </div>
+        <div class="fg">
+          <label class="fl">¿Asistirá al evento? <span class="req">*</span></label>
+          <div class="radio-row">
+            <div class="ro">
+              <input type="radio" name="asistencia2" id="si2" value="Sí, asistiré" />
+              <label class="rl" for="si2">✅ Sí, asistiré</label>
+            </div>
+            <div class="ro">
+              <input type="radio" name="asistencia2" id="no2" value="No podré asistir" />
+              <label class="rl" for="no2">❌ No podré asistir</label>
+            </div>
+          </div>
+          <div class="em" id="err-asistencia2">Por favor indica si asistirás.</div>
+        </div>
+        <button class="fsub" id="submitBtn2" type="button" onclick="submitFormMob()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Confirmar asistencia
+        </button>
+        <p class="fnote">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Datos confidenciales. Solo para gestión del evento.
+        </p>
+      </div>
+      <div class="conf" id="confYesMob">
+        <div class="conf-icon yes">✅</div>
+        <div class="conf-title">¡Registro confirmado!</div>
+        <p class="conf-text">Gracias por registrar tu información. Tu participación fortalece nuestra comunidad de egresados. Te esperamos en este importante espacio de actualización académica e integración.</p>
+        <div class="conf-detail">📅 <strong>23 de julio de 2026</strong> · 6:30 pm<br>📍 Unidad Prado Cajacopi, Calle 70 No. 56-21, El Prado, Barranquilla</div>
+      </div>
+      <div class="conf" id="confNoMob">
+        <div class="conf-icon no">📩</div>
+        <div class="conf-title">Registro recibido</div>
+        <p class="conf-text">Gracias por registrar tu información. Lamentamos que no puedas asistir al evento. Te agradecemos por permanecer en contacto con la Especialización en Gestión de la Calidad.</p>
+        <div class="conf-detail">💌 Permaneceremos en contacto sobre futuros eventos y novedades de la especialización.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
   <div class="footer-inner">
@@ -784,7 +1279,7 @@
 </footer>
 
 <script>
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZ8emmhsc7rDTutPLeqaav2erWf0uFsucKPq2v7BSPVWkT2YFfpzxqnwS3kUBqCU2z/exec";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZ8emmhsc7rDTutPLeqaav2erWf0uFsucKPq2v7BSPVWkT2YFfpzxqnwS3kUBqCU2z/exec"; // <-- Pega aqui la URL del Apps Script
 
 function showErr(id, show) {
   var el = document.getElementById('err-' + id);
@@ -833,6 +1328,63 @@ function showConf(val, formBody) {
 }
 
 document.getElementById('celular').addEventListener('input', function(){
+  this.value = this.value.replace(/[^\d\s\-\+\(\)]/g,'');
+});
+
+/* ── Hamburger menu ── */
+function toggleMenu() {
+  var btn  = document.getElementById('hamburgerBtn');
+  var menu = document.getElementById('mobileMenu');
+  btn.classList.toggle('open');
+  menu.classList.toggle('open');
+}
+function closeMenu() {
+  document.getElementById('hamburgerBtn').classList.remove('open');
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+document.addEventListener('click', function(e){
+  var nav = document.querySelector('nav');
+  if (!nav.contains(e.target)) closeMenu();
+});
+
+/* ── Mobile form submit ── */
+function submitFormMob() {
+  var nombre     = document.getElementById('nombre2').value.trim();
+  var correo     = document.getElementById('correo2').value.trim();
+  var celular    = document.getElementById('celular2').value.trim();
+  var cohorte    = document.getElementById('cohorte2').value;
+  var asistencia = document.querySelector('input[name="asistencia2"]:checked');
+  var ok = true;
+
+  function mErr(id, show) { var el=document.getElementById('err-'+id); if(el) el.classList[show?'add':'remove']('show'); }
+  function mMark(id, valid) { var el=document.getElementById(id); if(el){el.classList.toggle('error',!valid);el.classList.toggle('valid',valid);} }
+
+  if (!nombre)               { mMark('nombre2',false);  mErr('nombre2',true);     ok=false; } else { mMark('nombre2',true);  mErr('nombre2',false); }
+  if (!validateEmail(correo)){ mMark('correo2',false);  mErr('correo2',true);     ok=false; } else { mMark('correo2',true);  mErr('correo2',false); }
+  if (!validatePhone(celular)){ mMark('celular2',false); mErr('celular2',true);   ok=false; } else { mMark('celular2',true); mErr('celular2',false); }
+  if (!cohorte)               {                          mErr('cohorte2',true);   ok=false; } else { mErr('cohorte2',false); }
+  if (!asistencia)            {                          mErr('asistencia2',true);ok=false; } else { mErr('asistencia2',false); }
+
+  if (!ok) return;
+
+  var btn = document.getElementById('submitBtn2');
+  btn.disabled = true;
+  btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg> Enviando...';
+
+  var payload = { nombre:nombre, correo:correo, celular:celular, cohorte:'Cohorte '+cohorte, asistencia:asistencia.value };
+  var fb = document.getElementById('formBodyMob');
+
+  if (SCRIPT_URL === 'PEGAR_AQUI_URL_DEL_APPS_SCRIPT') { showConfMob(asistencia.value, fb); return; }
+
+  fetch(SCRIPT_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) })
+    .then(function(){ showConfMob(asistencia.value, fb); })
+    .catch(function(){ showConfMob(asistencia.value, fb); });
+}
+function showConfMob(val, fb) {
+  fb.style.display = 'none';
+  document.getElementById(val === 'Sí, asistiré' ? 'confYesMob' : 'confNoMob').classList.add('show');
+}
+document.getElementById('celular2').addEventListener('input', function(){
   this.value = this.value.replace(/[^\d\s\-\+\(\)]/g,'');
 });
 
