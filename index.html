@@ -801,14 +801,12 @@ function submitForm() {
   var nombre     = document.getElementById('nombre').value.trim();
   var correo     = document.getElementById('correo').value.trim();
   var celular    = document.getElementById('celular').value.trim();
-  var cohorte    = document.getElementById('cohorte').value;
   var asistencia = document.querySelector('input[name="asistencia"]:checked');
   var ok = true;
 
   if (!nombre)              { markField('nombre',false);  showErr('nombre',true);     ok=false; } else { markField('nombre',true);  showErr('nombre',false); }
   if (!validateEmail(correo)){ markField('correo',false); showErr('correo',true);     ok=false; } else { markField('correo',true);  showErr('correo',false); }
   if (!validatePhone(celular)){ markField('celular',false);showErr('celular',true);   ok=false; } else { markField('celular',true); showErr('celular',false); }
-  if (!cohorte)              {                            showErr('cohorte',true);    ok=false; } else { showErr('cohorte',false); }
   if (!asistencia)           {                            showErr('asistencia',true); ok=false; } else { showErr('asistencia',false); }
 
   if (!ok) return;
@@ -817,7 +815,7 @@ function submitForm() {
   btn.disabled = true;
   btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4"/></svg> Enviando...';
 
-  var payload = { nombre:nombre, correo:correo, celular:celular, cohorte:'Cohorte '+cohorte, asistencia:asistencia.value };
+  var payload = { nombre:nombre, correo:correo, celular:celular, asistencia:asistencia.value };
   var formBody = document.getElementById('formBody');
 
   if (SCRIPT_URL === 'PEGAR_AQUI_URL_DEL_APPS_SCRIPT') { showConf(asistencia.value, formBody); return; }
