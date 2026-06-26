@@ -778,6 +778,29 @@
   .free-badge{display:inline-block;background:#16a34a;color:#fff;padding:8px 16px;border-radius:999px;font-weight:700;margin:18px 0}
   .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:30px}
   .benefit{background:#fff;padding:24px;border-radius:14px;box-shadow:0 8px 22px rgba(0,0,0,.08)}
+
+  /* ── Botón registrar otra persona ── */
+  .btn-reset {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid var(--blue);
+    border-radius: 8px;
+    color: var(--blue);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .15s;
+    width: 100%;
+  }
+  .btn-reset:hover { background: var(--blue); color: #fff; transform: translateY(-1px); }
+  #mobile-form-section .btn-reset { border-color: var(--blue); color: var(--blue); }
+
   /* Hamburger: hidden on desktop, shown on mobile via media query */
   .hamburger { display: none; }
   #mobile-form-section { display: none; }
@@ -969,6 +992,7 @@
         <div class="conf-title">¡Registro confirmado!</div>
         <p class="conf-text">Gracias por registrar tu información. Tu participación fortalece nuestra comunidad de egresados. Te esperamos en este importante espacio de actualización académica e integración.</p>
         <div class="conf-detail">📅 <strong>23 de julio de 2026</strong> · 6:30 pm<br>📍 Unidad Prado Cajacopi, Calle 70 No. 56-21, El Prado, Barranquilla</div>
+        <button class="btn-reset" onclick="resetForm('desktop')">↩ Registrar otra persona</button>
       </div>
 
       <!-- NO confirmation -->
@@ -977,6 +1001,7 @@
         <div class="conf-title">Registro recibido</div>
         <p class="conf-text">Gracias por registrar tu información. Lamentamos que no puedas asistir al evento. Te agradecemos por permanecer en contacto con la Especialización en Gestión de la Calidad.</p>
         <div class="conf-detail">💌 Permaneceremos en contacto sobre futuros eventos y novedades de la especialización.</div>
+        <button class="btn-reset" onclick="resetForm('desktop')">↩ Registrar otra persona</button>
       </div>
 
     </div><!-- /hero-form-card -->
@@ -1230,12 +1255,14 @@
         <div class="conf-title">¡Registro confirmado!</div>
         <p class="conf-text">Gracias por registrar tu información. Tu participación fortalece nuestra comunidad de egresados. Te esperamos en este importante espacio de actualización académica e integración.</p>
         <div class="conf-detail">📅 <strong>23 de julio de 2026</strong> · 6:30 pm<br>📍 Unidad Prado Cajacopi, Calle 70 No. 56-21, El Prado, Barranquilla</div>
+        <button class="btn-reset" onclick="resetForm('mobile')">↩ Registrar otra persona</button>
       </div>
       <div class="conf" id="confNoMob">
         <div class="conf-icon no">📩</div>
         <div class="conf-title">Registro recibido</div>
         <p class="conf-text">Gracias por registrar tu información. Lamentamos que no puedas asistir al evento. Te agradecemos por permanecer en contacto con la Especialización en Gestión de la Calidad.</p>
         <div class="conf-detail">💌 Permaneceremos en contacto sobre futuros eventos y novedades de la especialización.</div>
+        <button class="btn-reset" onclick="resetForm('mobile')">↩ Registrar otra persona</button>
       </div>
     </div>
   </div>
@@ -1400,6 +1427,54 @@ function updateCountdown(){
  ['d','h','m','s'].forEach((id,i)=>document.getElementById(id).textContent=[d,h,m,s][i].toString().padStart(2,'0'));
 }
 setInterval(updateCountdown,1000);updateCountdown();
+
+
+/* ── Resetear formulario para nuevo registro ── */
+function resetForm(mode) {
+  if (mode === 'desktop') {
+    // Ocultar confirmaciones
+    document.getElementById('confYes').classList.remove('show');
+    document.getElementById('confNo').classList.remove('show');
+    // Restaurar formulario
+    var fb = document.getElementById('formBody');
+    fb.style.display = '';
+    // Limpiar campos
+    document.getElementById('nombre').value   = '';
+    document.getElementById('correo').value   = '';
+    document.getElementById('celular').value  = '';
+    document.getElementById('cohorte').value  = '';
+    var radios = document.querySelectorAll('input[name="asistencia"]');
+    radios.forEach(function(r){ r.checked = false; });
+    // Restaurar botón
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Confirmar asistencia';
+    // Quitar clases de validación
+    ['nombre','correo','celular'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.classList.remove('error','valid'); }
+    });
+  } else {
+    // Mobile
+    document.getElementById('confYesMob').classList.remove('show');
+    document.getElementById('confNoMob').classList.remove('show');
+    var fb2 = document.getElementById('formBodyMob');
+    fb2.style.display = '';
+    document.getElementById('nombre2').value   = '';
+    document.getElementById('correo2').value   = '';
+    document.getElementById('celular2').value  = '';
+    document.getElementById('cohorte2').value  = '';
+    var radios2 = document.querySelectorAll('input[name="asistencia2"]');
+    radios2.forEach(function(r){ r.checked = false; });
+    var btn2 = document.getElementById('submitBtn2');
+    btn2.disabled = false;
+    btn2.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Confirmar asistencia';
+    ['nombre2','correo2','celular2'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.classList.remove('error','valid'); }
+    });
+  }
+}
 
 </script>
 </body>
